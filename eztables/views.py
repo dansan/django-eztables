@@ -127,10 +127,15 @@ class DatatablesView(MultipleObjectMixin, View):
         '''Filter a queryset with global search'''
         search = self.dt_data['sSearch']
         if search:
+            search_fields = list()
+            for k,v in self.dt_data.items():
+                if k.startswith("bSearchable_") and v == True:
+                    index = int(k.split("bSearchable_")[1])
+                    search_fields.append(self.get_db_fields()[index])
             if self.dt_data['bRegex']:
                 criterions = [
                     Q(**{'%s__iregex' % field: search})
-                    for field in self.get_db_fields()
+                    for field in search_fields
                     if self.can_regex(field)
                 ]
                 if len(criterions) > 0:
@@ -138,7 +143,7 @@ class DatatablesView(MultipleObjectMixin, View):
                     queryset = queryset.filter(search)
             else:
                 for term in search.split():
-                    criterions = (Q(**{'%s__icontains' % field: term}) for field in self.get_db_fields())
+                    criterions = (Q(**{'%s__icontains' % field: term}) for field in search_fields)
                     search = reduce(or_, criterions)
                     queryset = queryset.filter(search)
         return queryset
