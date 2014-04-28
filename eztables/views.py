@@ -131,7 +131,7 @@ class DatatablesView(MultipleObjectMixin, View):
             for k,v in self.dt_data.items():
                 if k.startswith("bSearchable_") and v == True:
                     index = int(k.split("bSearchable_")[1])
-                    search_fields.append(self.get_db_fields()[index])
+                    search_fields.append(self.get_field(index))
             if self.dt_data['bRegex']:
                 criterions = [
                     Q(**{'%s__iregex' % field: search})
