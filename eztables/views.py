@@ -175,9 +175,9 @@ class DatatablesView(MultipleObjectMixin, View):
         '''Apply Datatables sort and search criterion to QuerySet'''
         qs = super(DatatablesView, self).get_queryset()
         # Perform global search
-        qs = self.global_search(qs)
+        qs = self.global_search(qs) or qs
         # Perform column search
-        qs = self.column_search(qs)
+        qs = self.column_search(qs) or qs
         # Return the ordered queryset
         return qs.order_by(*self.get_orders())
 
