@@ -8,8 +8,8 @@ from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.utils import unittest
 
-from django.utils.six import iteritems
-from django.utils.six.moves import xrange
+from six import iteritems
+from six.moves import xrange
 from factory import DjangoModelFactory, SubFactory, Sequence
 
 from eztables.forms import DatatablesForm

@@ -10,8 +10,8 @@ from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
 from django.db.models import Q
 from django.http import HttpResponse, HttpResponseBadRequest
-from django.utils.six import text_type
-from django.utils.six.moves import reduce, xrange
+from six import text_type
+from six.moves import reduce, xrange
 from django.views.generic import View
 from django.views.generic.list import MultipleObjectMixin
 
